@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.permissions import  AllowAny, IsAuthenticated
 from rest_framework.views import Response
-from .serializers import RegistrationSerializer, VideoSerializer
+from .serializers import RegistrationSerializer, VideoSerializer , UserSerializer
 from .models import Video , Comments , Like
 from rest_framework.decorators import api_view, permission_classes
 
@@ -85,3 +85,9 @@ def LikeVideo(request) :
 def DislikeVideo(request) :
     Like.objects.get(video__pk = request.data.get("video_id")).delete()
     return Response({"success" : "video disliked"})
+
+@get_authenticated_view
+def UserInfoView(request) :
+    user = request.user
+    data = UserSerializer(user).data
+    return Response(data)

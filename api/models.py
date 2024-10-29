@@ -10,7 +10,8 @@ from .cloudinary import GetUrlOnSave
 
 class Video(models.Model) :
     title = models.CharField(max_length = 100 )
-    thumbnail = CloudinaryField('image',blank = True )
+    # thumbnail = CloudinaryField('image',blank = True )
+    thumbnail = models.URLField(blank = True)
     category = models.CharField(max_length = 100) # ToDo -> Change to choice field
     video_url = models.URLField(blank = True)
     uploaded_by = models.ForeignKey(User , on_delete=models.CASCADE)
@@ -26,10 +27,6 @@ class Video(models.Model) :
         # change video url extension to jpg3
         url = url.replace(".mp4",".jpg")
         self.thumbnail = url
-
-
-
-
 
 
 

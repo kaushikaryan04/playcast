@@ -40,3 +40,8 @@ class VideoSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Video
         fields = "__all__"
+
+class UserSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = User
+        fields = ['id' , 'email' , 'username' , 'first_name' , 'last_name']

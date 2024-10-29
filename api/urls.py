@@ -7,5 +7,6 @@ urlpatterns = [
     path("listvideos" , ListVideos , name = "list_videos"),
     path("addcomment" , AddComment , name = "add comment"),
     path("likevideo" , LikeVideo , name = "likevideo"),
-    path("dislikevideo" , DislikeVideo , name = "dislike_video")
+    path("dislikevideo" , DislikeVideo , name = "dislike_video"),
+    path("userinfo" , UserInfoView , name = "userinfo" )
 ]

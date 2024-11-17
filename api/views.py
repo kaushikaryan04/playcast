@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.permissions import  AllowAny, IsAuthenticated
 from rest_framework.views import Response
-from .serializers import RegistrationSerializer, VideoSerializer , UserSerializer
+from .serializers import CommentsSerializer, RegistrationSerializer, VideoSerializer , UserSerializer
 from .models import Video , Comments , Like
 from rest_framework.decorators import api_view, permission_classes
 
@@ -41,6 +41,7 @@ def UploadVideo(request) :
         category = request.POST.get("category"),
         uploaded_by = request.user
     )
+    print(request)
     video.setUrl(request.FILES.get("video_file"))
     video.save()
     return Response({
@@ -67,9 +68,16 @@ def AddComment(request) :
     })
 
 @get_authenticated_view
+def ListComments(request):
+    qs = Comments.objects.filter(video__pk = int(request.GET.get("video_id")))
+    data = CommentsSerializer(qs , many = True).data
+    return Response(data)
+
+@get_authenticated_view
 def ListVideos(request) :
     videos = Video.objects.all()
     data = VideoSerializer(videos , many = True).data
+    print(data)
     return Response(data)
 
 @post_authenticated_view

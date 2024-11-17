@@ -6,8 +6,6 @@ from .cloudinary import GetUrlOnSave
 
 
 
-
-
 class Video(models.Model) :
     title = models.CharField(max_length = 100 )
     # thumbnail = CloudinaryField('image',blank = True )
@@ -27,6 +25,9 @@ class Video(models.Model) :
         # change video url extension to jpg3
         url = url.replace(".mp4",".jpg")
         self.thumbnail = url
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 

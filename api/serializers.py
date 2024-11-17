@@ -37,11 +37,24 @@ class RegistrationSerializer(serializers.ModelSerializer) :
         return user
 
 class VideoSerializer(serializers.ModelSerializer) :
+    like_count = serializers.SerializerMethodField()
+
     class Meta :
         model = Video
         fields = "__all__"
+    def get_like_count(self ,obj) :
+        return Like.objects.filter(video = obj).count()
+
 
 class UserSerializer(serializers.ModelSerializer) :
     class Meta :
         model = User
         fields = ['id' , 'email' , 'username' , 'first_name' , 'last_name']
+
+class CommentsSerializer(serializers.ModelSerializer) :
+    username = serializers.SerializerMethodField()
+    class Meta :
+        model = Comments
+        fields = "__all__"
+    def get_username(self , obj) :
+        return obj.user.username
